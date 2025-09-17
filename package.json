@@ -1,0 +1,35 @@
+{
+  "name": "react-native-wheel-datepicker",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "react-native": "src/index",
+  "keywords": [
+    "react-native",
+    "datepicker",
+    "wheel-datepicker",
+    "wheel",
+    "date-picker",
+    "date",
+    "picker",
+    "scroll-picker"
+  ],
+  "author": "CompileX",
+  "private": false,
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhyey0101/react-native-wheel-datepicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dhyey0101/react-native-wheel-datepicker/issues"
+  },
+  "homepage": "https://github.com/your-username/my-react-native-package#readme",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.64.0",
+    "react-native-haptic-feedback": "^2.3.3",
+    "react-native-raw-bottom-sheet": "^3.0.0"
+  }
+}

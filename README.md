@@ -1,1 +1,1 @@
-# -react-native-wheel-datepicker
+# react-native-wheel-datepicker
