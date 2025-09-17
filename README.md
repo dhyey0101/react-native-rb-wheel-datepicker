@@ -89,7 +89,7 @@ export default function App() {
 
 ## 📷 Preview
 
-_(You can add screenshots or a GIF here for better presentation)_
+ ![Screenshot 2025-09-17 at 3 08 50 PM](https://github.com/user-attachments/assets/c6c4e1b2-1fcb-4f6e-9f70-7927fd68d06d)
 
 ---
 
