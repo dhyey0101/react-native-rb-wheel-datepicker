@@ -1,5 +1,5 @@
 {
-  "name": "react-native-wheel-datepicker",
+  "name": "react-native-rb-wheel-datepicker",
   "version": "1.0.0",
   "main": "src/index.js",
   "react-native": "src/index",
@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/dhyey0101/react-native-wheel-datepicker/issues"
   },
-  "homepage": "https://github.com/your-username/my-react-native-package#readme",
+  "homepage": "https://github.com/dhyey0101/react-native-wheel-datepicker/blob/main/README.md",
   "peerDependencies": {
     "react": ">=17.0.0",
     "react-native": ">=0.64.0",
