@@ -47,7 +47,7 @@ const triggerHaptic = () => {
   });
 };
 
-export default function CustomWheelDatePicker({
+export default function DatePicker({
   title,
   isVisible,
   onClose,

@@ -41,7 +41,7 @@ npm install react-native-haptic-feedback react-native-raw-bottom-sheet
 ```tsx
 import React, { useState } from "react";
 import { Button, View, Text } from "react-native";
-import CustomWheelDatePicker from "react-native-wheel-datepicker";
+import DatePicker from "react-native-wheel-datepicker";
 
 export default function App() {
   const [visible, setVisible] = useState(false);
@@ -52,7 +52,7 @@ export default function App() {
       <Button title="Open Date Picker" onPress={() => setVisible(true)} />
       {date && <Text>Selected Date: {date.toDateString()}</Text>}
 
-      <CustomWheelDatePicker
+      <DatePicker
         title="Select your date"
         isVisible={visible}
         initialDate={new Date()}
