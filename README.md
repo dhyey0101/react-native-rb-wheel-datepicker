@@ -19,13 +19,13 @@ It uses `FlatList` to simulate iOS-style scroll wheels, wrapped inside a bottom 
 ## 📦 Installation
 
 ```sh
-npm install react-native-wheel-datepicker
+npm install react-native-rb-wheel-datepicker
 ```
 
 or with yarn:
 
 ```sh
-yarn add react-native-wheel-datepicker
+yarn add react-native-rb-wheel-datepicker
 ```
 
 Also install required peer dependencies:
@@ -41,7 +41,7 @@ npm install react-native-haptic-feedback react-native-raw-bottom-sheet
 ```tsx
 import React, { useState } from "react";
 import { Button, View, Text } from "react-native";
-import DatePicker from "react-native-wheel-datepicker";
+import DatePicker from "react-native-rb-wheel-datepicker";
 
 export default function App() {
   const [visible, setVisible] = useState(false);
@@ -89,7 +89,7 @@ export default function App() {
 
 ## 📷 Preview
 
- ![Screenshot 2025-09-17 at 3 08 50 PM](https://github.com/user-attachments/assets/c6c4e1b2-1fcb-4f6e-9f70-7927fd68d06d)
+![Screenshot 2025-09-17 at 3 08 50 PM](https://github.com/user-attachments/assets/c6c4e1b2-1fcb-4f6e-9f70-7927fd68d06d)
 
 ---
 
