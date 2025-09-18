@@ -57,6 +57,8 @@ export default function DatePicker({
   primaryColor,
   titleTextStyle,
   itemTextStyle,
+  minDate,
+  maxDate,
 }: {
   title?: string;
   isVisible: boolean;
@@ -67,6 +69,8 @@ export default function DatePicker({
   primaryColor?: string;
   titleTextStyle?: TextStyle;
   itemTextStyle?: TextStyle;
+  minDate?: Date;
+  maxDate?: Date;
 }) {
   const sheetRef = useRef<RBSheet>(null);
 
@@ -84,46 +88,87 @@ export default function DatePicker({
   const yearListRef = useRef<FlatList>(null);
   const didLayout = useRef(false);
 
+  // Clamp year list
+  const minYear = minDate ? minDate.getFullYear() : 1950;
+  const maxYear = maxDate ? maxDate.getFullYear() : 2150;
+  const availableYears = years.filter((y) => y >= minYear && y <= maxYear);
+
+  // Clamp month list
+  const availableMonths =
+    selectedYear === minYear && minDate
+      ? months.slice(minDate.getMonth())
+      : selectedYear === maxYear && maxDate
+      ? months.slice(0, maxDate.getMonth() + 1)
+      : months;
+
+  // Clamp days list
+  const getClampedDays = (month: number, year: number) => {
+    let allDays = getDaysInMonth(month, year);
+
+    if (minDate && year === minYear && month === minDate.getMonth()) {
+      allDays = allDays.filter((d) => d >= minDate.getDate());
+    }
+    if (maxDate && year === maxYear && month === maxDate.getMonth()) {
+      allDays = allDays.filter((d) => d <= maxDate.getDate());
+    }
+
+    return allDays;
+  };
+
   const scrollToInitialDate = (date: Date) => {
-    const day = date.getDate();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const yearIndex = years.findIndex((y) => y === year);
+    const clampedDate = new Date(
+      Math.min(
+        Math.max(date.getTime(), minDate?.getTime() ?? -Infinity),
+        maxDate?.getTime() ?? Infinity
+      )
+    );
+
+    const day = clampedDate.getDate();
+    const month = clampedDate.getMonth();
+    const year = clampedDate.getFullYear();
+    const yearIndex = availableYears.findIndex((y) => y === year);
 
     InteractionManager.runAfterInteractions(() => {
-      dayListRef.current?.scrollToIndex({ index: day - 1, animated: true });
-      monthListRef.current?.scrollToIndex({ index: month, animated: true });
-      yearListRef.current?.scrollToIndex({ index: yearIndex, animated: true });
+      dayListRef.current?.scrollToIndex({ index: day - 1, animated: false });
+      monthListRef.current?.scrollToIndex({ index: month, animated: false });
+      yearListRef.current?.scrollToIndex({ index: yearIndex, animated: false });
     });
   };
 
   useEffect(() => {
     if (isVisible && initialDate) {
-      const d = initialDate.getDate();
-      const m = initialDate.getMonth();
-      const y = initialDate.getFullYear();
+      const clampedDate = new Date(
+        Math.min(
+          Math.max(initialDate.getTime(), minDate?.getTime() ?? -Infinity),
+          maxDate?.getTime() ?? Infinity
+        )
+      );
+
+      const d = clampedDate.getDate();
+      const m = clampedDate.getMonth();
+      const y = clampedDate.getFullYear();
 
       setSelectedDay(d);
       setSelectedMonth(m);
       setSelectedYear(y);
-      setDaysInMonth(getDaysInMonth(m, y));
+      setDaysInMonth(getClampedDays(m, y));
 
       didLayout.current = false;
       sheetRef.current?.open();
     } else {
       sheetRef.current?.close();
     }
-  }, [isVisible, initialDate]);
+  }, [isVisible, initialDate, minDate, maxDate]);
 
   useEffect(() => {
     if (selectedMonth !== null && selectedYear !== null) {
-      const updatedDays = getDaysInMonth(selectedMonth, selectedYear);
+      const updatedDays = getClampedDays(selectedMonth, selectedYear);
       setDaysInMonth(updatedDays);
       if (selectedDay !== null && selectedDay > updatedDays.length) {
-        setSelectedDay(1);
+        setSelectedDay(updatedDays[0]);
       }
     }
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, minDate, maxDate]);
 
   const renderPicker = (
     data: string[] | number[],
@@ -182,7 +227,11 @@ export default function DatePicker({
 
   const handleConfirm = () => {
     if (selectedDay != null && selectedMonth != null && selectedYear != null) {
-      const finalDate = new Date(selectedYear, selectedMonth, selectedDay);
+      let finalDate = new Date(selectedYear, selectedMonth, selectedDay);
+
+      if (minDate && finalDate < minDate) finalDate = minDate;
+      if (maxDate && finalDate > maxDate) finalDate = maxDate;
+
       onConfirm(finalDate);
       onClose();
     }
@@ -220,7 +269,7 @@ export default function DatePicker({
           onLayout={() => {
             if (!didLayout.current && isVisible && initialDate) {
               didLayout.current = true;
-              scrollToInitialDate(initialDate); // no delay, no animation
+              scrollToInitialDate(initialDate);
             }
           }}
         >
@@ -234,7 +283,7 @@ export default function DatePicker({
             )}
           {selectedMonth !== null &&
             renderPicker(
-              months,
+              availableMonths,
               months[selectedMonth],
               (val) => setSelectedMonth(months.indexOf(val)),
               lastMonthIndex,
@@ -242,7 +291,7 @@ export default function DatePicker({
             )}
           {selectedYear !== null &&
             renderPicker(
-              years,
+              availableYears,
               selectedYear,
               setSelectedYear,
               lastYearIndex,
@@ -321,17 +370,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flexDirection: "row",
     gap: 16,
-  },
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "#007AFF",
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "600",
   },
   buttonStyle: {
     flex: 1,

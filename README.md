@@ -12,6 +12,7 @@ It uses `FlatList` to simulate iOS-style scroll wheels, wrapped inside a bottom 
 - 🎨 **Customizable** colors & text styles
 - 📳 **Haptic feedback** for better UX
 - 📅 **Initial date support**
+- 🔒 **Min/Max date support** to restrict selectable range
 - 📦 Built with `react-native-raw-bottom-sheet`
 
 ---
@@ -56,6 +57,8 @@ export default function App() {
         title="Select your date"
         isVisible={visible}
         initialDate={new Date()}
+        minDate={new Date(2020, 0, 15)} // Jan 15, 2020
+        maxDate={new Date(2026, 11, 20)} // Dec 20, 2026
         onClose={() => setVisible(false)}
         onConfirm={(selectedDate) => {
           setDate(selectedDate);
@@ -73,17 +76,19 @@ export default function App() {
 
 ## ⚙️ Props
 
-| Prop                   | Type                   | Default         | Description                                         |
-| ---------------------- | ---------------------- | --------------- | --------------------------------------------------- |
-| `title`                | `string`               | `"Select Date"` | Title text shown at the top                         |
-| `isVisible`            | `boolean`              | `false`         | Controls modal visibility                           |
-| `onClose`              | `() => void`           | **required**    | Called when modal is closed                         |
-| `onConfirm`            | `(date: Date) => void` | **required**    | Returns the selected date                           |
-| `initialDate`          | `Date`                 | `new Date()`    | Preselected date when opened                        |
-| `themeBackgroundColor` | `string`               | `"#FFFFFF"`     | Background color of the sheet                       |
-| `primaryColor`         | `string`               | `"#000000"`     | Highlight color for selected items & confirm button |
-| `titleTextStyle`       | `TextStyle`            | `undefined`     | Custom style for the title text                     |
-| `itemTextStyle`        | `TextStyle`            | `undefined`     | Custom style for list items                         |
+| Prop                   | Type                   | Default         | Description                                                            |
+| ---------------------- | ---------------------- | --------------- | ---------------------------------------------------------------------- |
+| `title`                | `string`               | `"Select Date"` | Title text shown at the top                                            |
+| `isVisible`            | `boolean`              | `false`         | Controls modal visibility                                              |
+| `onClose`              | `() => void`           | **required**    | Called when modal is closed                                            |
+| `onConfirm`            | `(date: Date) => void` | **required**    | Returns the selected date                                              |
+| `initialDate`          | `Date`                 | `new Date()`    | Preselected date when opened                                           |
+| `themeBackgroundColor` | `string`               | `"#FFFFFF"`     | Background color of the sheet                                          |
+| `primaryColor`         | `string`               | `"#000000"`     | Highlight color for selected items & confirm button                    |
+| `titleTextStyle`       | `TextStyle`            | `undefined`     | Custom style for the title text                                        |
+| `itemTextStyle`        | `TextStyle`            | `undefined`     | Custom style for list items                                            |
+| `minDate`              | `Date`                 | `undefined`     | Minimum selectable date (e.g. `new Date(2020, 0, 15)` → Jan 15, 2020)  |
+| `maxDate`              | `Date`                 | `undefined`     | Maximum selectable date (e.g. `new Date(2026, 11, 20)` → Dec 20, 2026) |
 
 ---
 
