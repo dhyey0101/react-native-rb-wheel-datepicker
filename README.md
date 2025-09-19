@@ -5,6 +5,12 @@ It uses `FlatList` to simulate iOS-style scroll wheels, wrapped inside a bottom 
 
 ---
 
+## 📷 Preview
+
+<img width="252" height="237" alt="Screenshot 2025-09-19 at 5 42 01 PM" src="https://github.com/user-attachments/assets/055830f5-ebd2-4a15-98f1-bb5f2c540bcc" />
+
+---
+
 ## ✨ Features
 
 - 🎡 **Wheel-style picker** for days, months, and years
@@ -14,6 +20,21 @@ It uses `FlatList` to simulate iOS-style scroll wheels, wrapped inside a bottom 
 - 📅 **Initial date support**
 - 🔒 **Min/Max date support** to restrict selectable range
 - 📦 Built with `react-native-raw-bottom-sheet`
+
+---
+
+## 📌 Which package should I install?
+
+We provide two separate packages so you can choose based on your project requirements:
+
+| Requirement                                                       | Recommended Package                                                                                               |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| You only need a **date picker** (day, month, year)                | 📦 [`react-native-rb-wheel-datepicker`](https://www.npmjs.com/package/react-native-rb-wheel-datepicker)           |
+| You need both **date & time picker** (date + hour/minute + AM/PM) | 📦 [`react-native-rb-wheel-datetime-picker`](https://www.npmjs.com/package/react-native-rb-wheel-datetime-picker) |
+
+👉 If you only need date selection, we recommend installing the lighter package [react-native-rb-wheel-datepicker](https://www.npmjs.com/package/react-native-rb-wheel-datepicker).
+
+👉 If you need both date and time selection, install [react-native-rb-wheel-datetime-picker](https://www.npmjs.com/package/react-native-rb-wheel-datetime-picker).
 
 ---
 
@@ -89,12 +110,6 @@ export default function App() {
 | `itemTextStyle`        | `TextStyle`            | `undefined`     | Custom style for list items                                            |
 | `minDate`              | `Date`                 | `undefined`     | Minimum selectable date (e.g. `new Date(2020, 0, 15)` → Jan 15, 2020)  |
 | `maxDate`              | `Date`                 | `undefined`     | Maximum selectable date (e.g. `new Date(2026, 11, 20)` → Dec 20, 2026) |
-
----
-
-## 📷 Preview
-
-![Screenshot 2025-09-17 at 3 08 50 PM](https://github.com/user-attachments/assets/c6c4e1b2-1fcb-4f6e-9f70-7927fd68d06d)
 
 ---
 
