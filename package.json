@@ -1,6 +1,6 @@
 {
   "name": "react-native-rb-wheel-datepicker",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "src/index.js",
   "react-native": "src/index",
   "keywords": [
